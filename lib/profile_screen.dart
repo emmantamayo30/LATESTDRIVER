@@ -19,7 +19,7 @@ class ProfileDemoApp extends StatelessWidget {
       title: 'Profile Screen',
       theme: ThemeData(
         useMaterial3: false,
-        fontFamily: 'SF Pro', // iOS-like
+        fontFamily: 'SF Pro',
       ),
       home: const ProfileScreen(),
     );
@@ -48,8 +48,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: const Text('Cancel'),
           ),
           ElevatedButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('Exit'),
+            onPressed: () {
+              Navigator.pushNamed(context, '/editProfile');
+            },
+            child: const Text("Edit Profile"),
           ),
         ],
       ),
@@ -66,12 +68,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final double w = size.width;
-    // Smaller scale so it fits better on compact/medium phones
-    final double avatarSize = w * 0.34; // smaller avatar
-    final double nameFont = w * 0.05;   // slightly smaller name
-    final double tileHeight = w * 0.14; // slimmer tiles
-    final double tileIcon = w * 0.060;  // smaller icon
-    final double tileText = w * 0.045;  // smaller label text
+
+    final double avatarSize = w * 0.34;
+    final double nameFont = w * 0.05;
+    final double tileHeight = w * 0.14;
+    final double tileIcon = w * 0.060;
+    final double tileText = w * 0.045;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -91,7 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Center(
               child: Column(
                 children: [
-                  // Avatar
+
                   Container(
                     width: avatarSize,
                     height: avatarSize,
@@ -124,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const SizedBox(height: 14),
 
-                  // On-Duty pill with knob
+
                   _OnDutyPill(
                     value: onDuty,
                     label: 'On-Duty',
@@ -137,7 +139,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const _ShadowSeparator(),
             const SizedBox(height: 18),
 
-            // Menu Buttons
+
             _MenuButton(
               icon: Icons.person_outline,
               label: 'Edit Profile',
@@ -223,7 +225,7 @@ class _OnDutyPillState extends State<_OnDutyPill> {
 
   @override
   Widget build(BuildContext context) {
-    // Deep navy for ON (matches design), subtle grey for OFF
+
     const Color onColor = Color(0xFF0F3F7F);
     const Color offColor = Color(0xFFCBD5E1);
 
@@ -246,7 +248,7 @@ class _OnDutyPillState extends State<_OnDutyPill> {
         ),
         child: Stack(
           children: [
-            // Centered label
+
             Center(
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 180),
@@ -263,7 +265,7 @@ class _OnDutyPillState extends State<_OnDutyPill> {
               ),
             ),
 
-            // Knob inside pill (slides smoothly)
+
             AnimatedAlign(
               alignment: _value ? Alignment.centerRight : Alignment.centerLeft,
               duration: const Duration(milliseconds: 200),
@@ -312,12 +314,12 @@ class _MenuButton extends StatelessWidget {
   final double? iconSize;
   final double? textSize;
 
-  static const Color tileColor = Color(0xFFA9C3FF); // closer to reference blue
-  static const Color tileBorder = Color(0xFF0F3F7F); // deep navy border
+  static const Color tileColor = Color(0xFFA9C3FF);
+  static const Color tileBorder = Color(0xFF0F3F7F);
 
   @override
   Widget build(BuildContext context) {
-    // Pull scaled sizes if provided
+
     final double effectiveHeight = height ?? 90;
     final double effectiveIcon = iconSize ?? 32;
     final double effectiveText = textSize ?? 28;
@@ -345,7 +347,7 @@ class _MenuButton extends StatelessWidget {
                 style: TextStyle(fontSize: effectiveText, fontWeight: FontWeight.w700, color: Colors.black),
               ),
               const Spacer(),
-              // Chevron removed to match reference design
+
             ],
           ),
         ),
@@ -362,19 +364,19 @@ class _ShadowSeparator extends StatelessWidget {
     return Container(
       height: 1,
       decoration: const BoxDecoration(
-        color: Color(0xFF9AA0A6), // darker visible line
+        color: Color(0xFF9AA0A6),
         boxShadow: [
           BoxShadow(
             color: Color(0x4D000000),
             blurRadius: 4,
             spreadRadius: 0,
-            offset: Offset(0, 2), // pronounced drop shadow below
+            offset: Offset(0, 2),
           ),
           BoxShadow(
             color: Color(0x4D000000),
             blurRadius: 4,
             spreadRadius: 0,
-            offset: Offset(0, 2), // softer extended shadow
+            offset: Offset(0, 2),
           ),
         ],
       ),
